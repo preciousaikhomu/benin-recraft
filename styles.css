@@ -255,3 +255,8 @@ body{background:var(--paper)}
 .tiles .k{background:#fff}
 input,select,textarea,.card,.kpi,.scroll,.steps{background:#fff}
 @media(max-width:1000px){.nav{background:var(--paper)}}
+/* pictures blend into the page background */
+.prod .ph,.pdp .big,.thumb{background:transparent}
+.prod .ph img,.pdp .big img,.thumb,.cartrow img{mix-blend-mode:multiply}
+.hx .g svg,.cat svg{opacity:.88}
+.hx .g figure,.cat{background:var(--paper)}
