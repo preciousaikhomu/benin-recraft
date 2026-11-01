@@ -18,3 +18,6 @@ Live: https://benin-recraft.vercel.app
 - Never commit a Supabase service-role key.
 - Admins are listed in the `admin_emails` table and take effect once the email is confirmed.
 - Checkout takes no payment yet. Paystack or Flutterwave is the next step.
+
+## Deploys
+Pushes to `main` deploy automatically on Vercel.
