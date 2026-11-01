@@ -81,7 +81,7 @@ function renderHeader() {
     <a class="brand" href="#/">Benin <b>Re</b>Craft</a>
     <button class="btn alt sm burger" data-act="burger" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
-      <a href="#/shop">Shop</a><a href="#/directory">Directory</a><a href="#/about">About</a><a href="#/join">Contact</a>
+      <a href="#/shop">Shop</a><a href="#/shop?cat=Bags%20%26%20Accessories">Bags</a><a href="#/shop?cat=Footwear">Footwear</a><a href="#/shop?cat=Mats%20%26%20Floor%20Coverings">Mats</a><a href="#/shop?cat=Home%20%26%20Decor">Home</a><a href="#/directory">Directory</a><a href="#/about">About</a><a href="#/join">Contact</a>
       <a href="#/cart">Cart${n ? ` (${n})` : ''}</a>
       ${u ? html`<a href="#/app">Dashboard</a><button class="btn alt sm" data-act="logout">Sign out</button>` : html`<a href="#/login">Sign in</a><a class="btn sm" href="#/signup">Join</a>`}
     </nav></div>`.toString();
@@ -109,17 +109,6 @@ function setMain(c, t = token) {
 function setTitle(t) { document.title = t ? `${t} | Benin ReCraft` : 'Benin ReCraft | Recycled craft from Benin City'; }
 
 /* ---------- decorative weave ---------- */
-function weave() {
-  const n = 10, s = 40; let r = '';
-  const h = ['#1F3864', '#0E7C7B'], v = ['#B08D57', '#1F3864', '#0E7C7B'];
-  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
-    if ((x + y) % 2 === 0) r += `<rect x="${x * s}" y="${y * s + 6}" width="${s}" height="${s - 12}" fill="${h[y % 2]}"/>`;
-    else r += `<rect x="${x * s + 6}" y="${y * s}" width="${s - 12}" height="${s}" fill="${v[x % 3]}"/>`;
-  }
-  return raw(`<svg class="weave" viewBox="0 0 400 400" aria-hidden="true" focusable="false"><rect width="400" height="400" fill="#F4F6F9"/>${r}</svg>`);
-}
-
-/* ---------- auth/session ---------- */
 async function loadSession() {
   const { data: { session } } = await sb.auth.getSession();
   state.user = session ? session.user : null;
@@ -172,63 +161,48 @@ const prodCard = p => html`<a class="prod" href="#/product/${p.id}">
 function swatch(k) {
 const o = (body, bg) => raw(`<svg viewBox="0 0 200 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect width="200" height="160" fill="${bg}"/>${body}</svg>`);
 let r = '';
-if (k === 'rubber') { for (let y = 0; y < 9; y++) r += `<polyline points="-4,${y * 20 + 14} 100,${y * 20 - 6} 204,${y * 20 + 14}" fill="none" stroke="#2A3A5C" stroke-width="7"/>`; return o(r, '#0F1B33'); }
-if (k === 'textile') { const c = ['#B08D57', '#1F3864', '#F4F6F9', '#2B4A85', '#D3B98A']; for (let i = 0; i < 5; i++) r += `<rect x="${i * 40}" width="40" height="160" fill="${c[i]}"/>`; r += '<line x1="0" y1="80" x2="200" y2="80" stroke="#fff" stroke-width="2" stroke-dasharray="6 7"/>'; return o(r, '#fff'); }
-if (k === 'woven') { for (let y = 0; y < 7; y++) for (let x = 0; x < 9; x++) { r += (x + y) % 2 === 0 ? `<rect x="${x * 24 + 1}" y="${y * 24 + 6}" width="24" height="12" fill="${y % 2 ? '#2B4A85' : '#1F3864'}"/>` : `<rect x="${x * 24 + 6}" y="${y * 24 + 1}" width="12" height="24" fill="${x % 3 ? '#B08D57' : '#1F3864'}"/>`; } return o(r, '#F4F6F9'); }
-if (k === 'caps') { const c = ['#B08D57', '#F4F6F9', '#D3B98A']; for (let y = 0; y < 5; y++) for (let x = 0; x < 6; x++) { const cx = x * 38 + (y % 2 ? 38 : 19), cy = y * 34 + 14, f = c[(x + y) % 3]; r += `<circle cx="${cx}" cy="${cy}" r="16" fill="${f}"/><circle cx="${cx}" cy="${cy}" r="9" fill="none" stroke="#1F3864" stroke-width="2"/>`; } return o(r, '#1F3864'); }
-if (k === 'twine') { for (let y = 0; y < 9; y++) r += `<path d="M-10 ${y * 20 + 10} Q 15 ${y * 20 - 4} 40 ${y * 20 + 10} T 90 ${y * 20 + 10} T 140 ${y * 20 + 10} T 190 ${y * 20 + 10} T 240 ${y * 20 + 10}" fill="none" stroke="#B08D57" stroke-width="6"/>`; return o(r, '#E9E1CF'); }
-for (let i = 0; i < 22; i++) r += `<line x1="${i * 14 - 160}" y1="160" x2="${i * 14}" y2="0" stroke="#4A6EA8" stroke-width="2.5"/>`;
-return o(r, '#2C4A7C');
-}
-function edge(fg) {
-let r = '';
-for (let i = 0; i < 60; i++) r += `<rect x="${i * 24 + 4}" y="4" width="16" height="16" transform="rotate(45 ${i * 24 + 12} 12)" fill="${fg}"/>`;
-return raw(`<svg class="trim" viewBox="0 0 1440 24" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">${r}</svg>`);
+if (k === 'rubber') { for (let y = 0; y < 9; y++) r += `<polyline points="-4,${y * 20 + 14} 100,${y * 20 - 6} 204,${y * 20 + 14}" fill="none" stroke="#333333" stroke-width="7"/>`; return o(r, '#151515'); }
+if (k === 'textile') { const c = ['#FF5A1F', '#151515', '#FFFFFF', '#8A8A85', '#E4E4E0']; for (let i = 0; i < 5; i++) r += `<rect x="${i * 40}" width="40" height="160" fill="${c[i]}"/>`; r += '<line x1="0" y1="80" x2="200" y2="80" stroke="#fff" stroke-width="2" stroke-dasharray="6 7"/>'; return o(r, '#fff'); }
+if (k === 'woven') { for (let y = 0; y < 7; y++) for (let x = 0; x < 9; x++) { r += (x + y) % 2 === 0 ? `<rect x="${x * 24 + 1}" y="${y * 24 + 6}" width="24" height="12" fill="${y % 2 ? '#8A8A85' : '#151515'}"/>` : `<rect x="${x * 24 + 6}" y="${y * 24 + 1}" width="12" height="24" fill="${x % 3 ? '#FF5A1F' : '#151515'}"/>`; } return o(r, '#F3F3F1'); }
+if (k === 'caps') { const c = ['#FF5A1F', '#FFFFFF', '#E4E4E0']; for (let y = 0; y < 5; y++) for (let x = 0; x < 6; x++) { const cx = x * 38 + (y % 2 ? 38 : 19), cy = y * 34 + 14, f = c[(x + y) % 3]; r += `<circle cx="${cx}" cy="${cy}" r="16" fill="${f}"/><circle cx="${cx}" cy="${cy}" r="9" fill="none" stroke="#151515" stroke-width="2"/>`; } return o(r, '#151515'); }
+if (k === 'twine') { for (let y = 0; y < 9; y++) r += `<path d="M-10 ${y * 20 + 10} Q 15 ${y * 20 - 4} 40 ${y * 20 + 10} T 90 ${y * 20 + 10} T 140 ${y * 20 + 10} T 190 ${y * 20 + 10} T 240 ${y * 20 + 10}" fill="none" stroke="#151515" stroke-width="6"/>`; return o(r, '#E4E4E0'); }
+for (let i = 0; i < 22; i++) r += `<line x1="${i * 14 - 160}" y1="160" x2="${i * 14}" y2="0" stroke="#C9C9C4" stroke-width="2.5"/>`;
+return o(r, '#8A8A85');
 }
 async function home() {
 const t = token; setTitle('');
 setMain(html`<div class="wrap">${loadingHTML}</div>`, t);
 const [prods, mk, pr, pc] = await Promise.all([
-q(sb.from('products').select('id,name,price,image_url,profiles(full_name,business_name)').eq('status', 'published').order('created_at', { ascending: false }).limit(4)),
+q(sb.from('products').select('id,name,price,image_url,profiles(full_name,business_name)').eq('status', 'published').order('created_at', { ascending: false }).limit(8)),
 count('profiles', b => b.eq('role', 'maker').eq('status', 'approved')),
 count('profiles', b => b.eq('role', 'producer').eq('status', 'approved')),
 count('products', b => b.eq('status', 'published'))
 ]);
-const mats = [['rubber', 'Tyre rubber'], ['textile', 'Textile offcuts'], ['woven', 'Woven sacks'], ['caps', 'Bottle caps'], ['twine', 'Twine and rope'], ['denim', 'Old denim']];
-const turns = [['rubber', 'Tyre rubber', 'Sandals and slides'], ['textile', 'Textile offcuts', 'Bags and pouches'], ['woven', 'Woven sacks', 'Floor mats and rugs'], ['caps', 'Bottle caps and twine', 'Home decor']];
+const cats = [['Bags & Accessories', 'Bags', 'textile'], ['Footwear', 'Footwear', 'rubber'], ['Mats & Floor Coverings', 'Mats and rugs', 'woven'], ['Home & Decor', 'Home decor', 'caps']];
 setMain(html`
-<section class="h2"><div class="wrap h2g">
-<div class="h2t">
-<h1>Tyres become sandals. Offcuts become bags.</h1>
-<p class="lede">Benin ReCraft links the makers who work with recycled materials to the people who supply them, then carries the finished goods from Benin City to buyers around the world.</p>
-<div class="row" style="margin-top:32px"><a class="btn gold" href="#/shop">Shop products</a><a class="btn ghost" href="#/signup">Join as a maker or supplier</a></div>
-</div>
-<div class="sw" role="list" aria-label="Recycled materials the makers work with">${mats.map(([k, n]) => html`<figure role="listitem">${swatch(k)}<figcaption>${n}</figcaption></figure>`)}</div>
-</div>${edge('#B08D57')}</section>
-<section class="sec"><div class="wrap">
-<h2>What the materials become</h2>
-<ul class="tf">${turns.map(([k, a, b]) => html`<li><span class="chip2">${swatch(k)}</span><p>${a}<span>becomes</span>${b}</p></li>`)}</ul>
-</div></section>
-<section class="sec chalk"><div class="wrap">
-<div class="pagehead"><h2 style="margin:0">New in the shop</h2><a href="#/shop">See all products</a></div>
+<section class="wrap hx">
+<div class="t"><h1>Made by hand in Benin City from what was thrown away.</h1>
+<p>Bags, shoes, mats and home goods from tyres, textile offcuts and other recycled materials, each with its maker's story.</p>
+<div class="row"><a class="btn gold" href="#/shop">Shop all products</a><a class="btn ghost" href="#/signup">Sell with us</a></div></div>
+<div class="g" aria-hidden="true"><figure>${swatch('rubber')}</figure><figure>${swatch('textile')}</figure><figure>${swatch('woven')}</figure><figure>${swatch('caps')}</figure></div>
+</section>
+<section class="wrap sec tight"><h2 class="sh">Shop by category</h2>
+<div class="cats">${cats.map(([c, n, k]) => html`<a class="cat" href="#/shop?cat=${encodeURIComponent(c)}">${swatch(k)}<span>${n}</span></a>`)}</div></section>
+<section class="wrap sec tight">
+<div class="pagehead"><h2 class="sh" style="margin:0">New arrivals</h2><a href="#/shop">View all</a></div>
 ${prods.length ? html`<div class="grid g4">${prods.map(prodCard)}</div>` : empty('The first collections are on their way', 'Makers are preparing their first products. Join now to be among the first to list or buy.', html`<a class="btn" href="#/signup">Create an account</a>`)}
 ${(mk + pr + pc) > 0 ? html`<p class="muted" style="margin-top:24px">${mk} maker${mk === 1 ? '' : 's'}, ${pr} material supplier${pr === 1 ? '' : 's'} and ${pc} product${pc === 1 ? '' : 's'} on the platform so far.</p>` : ''}
+</section>
+<section class="wrap sec tight"><div class="vals">
+<div><h3>Made from recycled materials</h3><p>Every product starts as tyre rubber, textile offcuts, woven sacks or similar material.</p></div>
+<div><h3>A maker behind every product</h3><p>Each listing tells you who made it and what Benin art or culture it draws on.</p></div>
+<div><h3>Worldwide and wholesale</h3><p>Buy one piece, or ask about bulk and corporate gifting orders.</p></div>
 </div></section>
-<section class="her">${edge('#B08D57')}<div class="wrap"><p>Benin City has been known for its craft for centuries. ReCraft adds a new material to that story: what everyone else throws away.</p></div>${edge('#B08D57')}</section>
-<section class="sec"><div class="wrap"><h2>From material to market</h2>
-<ol class="steps">
-<li><b>Map</b><span>Find makers and material suppliers across Benin City.</span></li>
-<li><b>Match</b><span>Link suppliers to the makers who need their materials.</span></li>
-<li><b>Make</b><span>Makers create products that carry Benin art and culture.</span></li>
-<li><b>List</b><span>Products go on this shop and on partner marketplaces.</span></li>
-<li><b>Ship</b><span>Orders are packed and sent locally and abroad.</span></li>
-<li><b>Scale</b><span>Sales feedback shapes new products and brings in more makers.</span></li>
-</ol></div></section>
-<section class="aud">
-<div class="p-navy"><h3>Makers</h3><p>List your bags, shoes, mats and other goods, ask suppliers for recycled materials, and receive orders in one place.</p><a class="btn" href="#/signup?role=maker">Join as a maker</a></div>
-<div class="p-navy"><h3>Material suppliers</h3><p>Show what recycled materials you produce, how much, and at what price, and get matched with makers who need them.</p><a class="btn" href="#/signup?role=producer">Join as a supplier</a></div>
-<div class="p-navy"><h3>Buyers</h3><p>Buy distinctive, sustainably made products from Benin City, or ask about wholesale and corporate gifting.</p><a class="btn" href="#/join?kind=wholesale">Ask about wholesale</a></div>
-</section>`, t);
+<section class="wrap sec tight"><div class="tiles">
+<div class="k"><h3>Are you a maker?</h3><p>List your products, request recycled materials and receive orders in one place.</p><a class="btn" href="#/signup?role=maker">Join as a maker</a></div>
+<div class="k"><h3>Do you supply materials?</h3><p>Show what you have, how much and at what price, and get matched with makers.</p><a class="btn" href="#/signup?role=producer">Join as a supplier</a></div>
+<div class="dk"><h3>Buying in bulk?</h3><p>Ask about wholesale and corporate gifting from Benin City makers.</p><a class="btn gold" href="#/join?kind=wholesale">Ask about wholesale</a></div>
+</div></section>`, t);
 }
 async function shop(qs) {
   const t = token; setTitle('Shop');
