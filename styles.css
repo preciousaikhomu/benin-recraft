@@ -230,3 +230,20 @@ h3,h4{letter-spacing:-.01em;font-weight:700}
 .p-teal{background:var(--teal)}.p-navy{background:var(--navy)}.p-coral{background:#8F2B1E}
 @media(max-width:860px){.aud{grid-template-columns:1fr}.aud>div{min-height:0}.h2g{grid-template-columns:1fr}.h2 h1{max-width:none}}
 @media(max-width:560px){.sw{grid-template-columns:repeat(2,1fr)}}
+
+a{color:var(--navy)}
+a:hover{color:var(--gold)}
+.nav a:hover,.nav a.on{color:var(--navy)}
+.prod:hover{border-color:var(--navy)}
+.her{background:#fff;color:var(--navy);border-block:0}
+.her .wrap{padding-top:var(--s6);padding-bottom:var(--s6)}
+.aud{background:var(--navy)}
+.aud>div{background:transparent;border-right:1px solid rgba(176,141,87,.5)}
+.aud>div:last-child{border-right:0}
+.aud h3{color:#fff}
+.aud .btn{background:var(--gold);border-color:var(--gold);color:#1b1304}
+.aud .btn:hover{background:#fff;color:var(--navy)}
+@media(max-width:860px){.aud>div{border-right:0;border-bottom:1px solid rgba(176,141,87,.5)}}
+.h2 .btn:not(.gold):not(.ghost){color:#fff}
+
+footer.foot{border-top:4px solid var(--gold)}

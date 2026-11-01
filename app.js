@@ -172,11 +172,11 @@ const prodCard = p => html`<a class="prod" href="#/product/${p.id}">
 function swatch(k) {
 const o = (body, bg) => raw(`<svg viewBox="0 0 200 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect width="200" height="160" fill="${bg}"/>${body}</svg>`);
 let r = '';
-if (k === 'rubber') { for (let y = 0; y < 9; y++) r += `<polyline points="-4,${y * 20 + 14} 100,${y * 20 - 6} 204,${y * 20 + 14}" fill="none" stroke="#3b4354" stroke-width="7"/>`; return o(r, '#1B1F27'); }
-if (k === 'textile') { const c = ['#B08D57', '#0E7C7B', '#C23B2A', '#F4F6F9', '#1F3864']; for (let i = 0; i < 5; i++) r += `<rect x="${i * 40}" width="40" height="160" fill="${c[i]}"/>`; r += '<line x1="0" y1="80" x2="200" y2="80" stroke="#fff" stroke-width="2" stroke-dasharray="6 7"/>'; return o(r, '#fff'); }
-if (k === 'woven') { for (let y = 0; y < 7; y++) for (let x = 0; x < 9; x++) { r += (x + y) % 2 === 0 ? `<rect x="${x * 24 + 1}" y="${y * 24 + 6}" width="24" height="12" fill="${y % 2 ? '#0E7C7B' : '#1F3864'}"/>` : `<rect x="${x * 24 + 6}" y="${y * 24 + 1}" width="12" height="24" fill="${x % 3 ? '#B08D57' : '#C23B2A'}"/>`; } return o(r, '#F4F6F9'); }
-if (k === 'caps') { const c = ['#C23B2A', '#B08D57', '#F4F6F9']; for (let y = 0; y < 5; y++) for (let x = 0; x < 6; x++) { const cx = x * 38 + (y % 2 ? 38 : 19), cy = y * 34 + 14, f = c[(x + y) % 3]; r += `<circle cx="${cx}" cy="${cy}" r="16" fill="${f}"/><circle cx="${cx}" cy="${cy}" r="9" fill="none" stroke="#0A5E5D" stroke-width="2"/>`; } return o(r, '#0E7C7B'); }
-if (k === 'twine') { for (let y = 0; y < 9; y++) r += `<path d="M-10 ${y * 20 + 10} Q 15 ${y * 20 - 4} 40 ${y * 20 + 10} T 90 ${y * 20 + 10} T 140 ${y * 20 + 10} T 190 ${y * 20 + 10} T 240 ${y * 20 + 10}" fill="none" stroke="#8A6A3A" stroke-width="6"/>`; return o(r, '#DCC9A4'); }
+if (k === 'rubber') { for (let y = 0; y < 9; y++) r += `<polyline points="-4,${y * 20 + 14} 100,${y * 20 - 6} 204,${y * 20 + 14}" fill="none" stroke="#2A3A5C" stroke-width="7"/>`; return o(r, '#0F1B33'); }
+if (k === 'textile') { const c = ['#B08D57', '#1F3864', '#F4F6F9', '#2B4A85', '#D3B98A']; for (let i = 0; i < 5; i++) r += `<rect x="${i * 40}" width="40" height="160" fill="${c[i]}"/>`; r += '<line x1="0" y1="80" x2="200" y2="80" stroke="#fff" stroke-width="2" stroke-dasharray="6 7"/>'; return o(r, '#fff'); }
+if (k === 'woven') { for (let y = 0; y < 7; y++) for (let x = 0; x < 9; x++) { r += (x + y) % 2 === 0 ? `<rect x="${x * 24 + 1}" y="${y * 24 + 6}" width="24" height="12" fill="${y % 2 ? '#2B4A85' : '#1F3864'}"/>` : `<rect x="${x * 24 + 6}" y="${y * 24 + 1}" width="12" height="24" fill="${x % 3 ? '#B08D57' : '#1F3864'}"/>`; } return o(r, '#F4F6F9'); }
+if (k === 'caps') { const c = ['#B08D57', '#F4F6F9', '#D3B98A']; for (let y = 0; y < 5; y++) for (let x = 0; x < 6; x++) { const cx = x * 38 + (y % 2 ? 38 : 19), cy = y * 34 + 14, f = c[(x + y) % 3]; r += `<circle cx="${cx}" cy="${cy}" r="16" fill="${f}"/><circle cx="${cx}" cy="${cy}" r="9" fill="none" stroke="#1F3864" stroke-width="2"/>`; } return o(r, '#1F3864'); }
+if (k === 'twine') { for (let y = 0; y < 9; y++) r += `<path d="M-10 ${y * 20 + 10} Q 15 ${y * 20 - 4} 40 ${y * 20 + 10} T 90 ${y * 20 + 10} T 140 ${y * 20 + 10} T 190 ${y * 20 + 10} T 240 ${y * 20 + 10}" fill="none" stroke="#B08D57" stroke-width="6"/>`; return o(r, '#E9E1CF'); }
 for (let i = 0; i < 22; i++) r += `<line x1="${i * 14 - 160}" y1="160" x2="${i * 14}" y2="0" stroke="#4A6EA8" stroke-width="2.5"/>`;
 return o(r, '#2C4A7C');
 }
@@ -225,9 +225,9 @@ ${(mk + pr + pc) > 0 ? html`<p class="muted" style="margin-top:24px">${mk} maker
 <li><b>Scale</b><span>Sales feedback shapes new products and brings in more makers.</span></li>
 </ol></div></section>
 <section class="aud">
-<div class="p-teal"><h3>Makers</h3><p>List your bags, shoes, mats and other goods, ask suppliers for recycled materials, and receive orders in one place.</p><a class="btn" href="#/signup?role=maker">Join as a maker</a></div>
+<div class="p-navy"><h3>Makers</h3><p>List your bags, shoes, mats and other goods, ask suppliers for recycled materials, and receive orders in one place.</p><a class="btn" href="#/signup?role=maker">Join as a maker</a></div>
 <div class="p-navy"><h3>Material suppliers</h3><p>Show what recycled materials you produce, how much, and at what price, and get matched with makers who need them.</p><a class="btn" href="#/signup?role=producer">Join as a supplier</a></div>
-<div class="p-coral"><h3>Buyers</h3><p>Buy distinctive, sustainably made products from Benin City, or ask about wholesale and corporate gifting.</p><a class="btn" href="#/join?kind=wholesale">Ask about wholesale</a></div>
+<div class="p-navy"><h3>Buyers</h3><p>Buy distinctive, sustainably made products from Benin City, or ask about wholesale and corporate gifting.</p><a class="btn" href="#/join?kind=wholesale">Ask about wholesale</a></div>
 </section>`, t);
 }
 async function shop(qs) {
